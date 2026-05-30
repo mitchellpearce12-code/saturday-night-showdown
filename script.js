@@ -1,5 +1,5 @@
 const canvas =
-document.getElementById("effects");
+document.getElementById("embers");
 
 const ctx =
 canvas.getContext("2d");
@@ -20,130 +20,102 @@ window.addEventListener(
 resize
 );
 
-const embers=[];
+const particles=[];
 
-for(let i=0;i<250;i++){
+for(let i=0;i<40;i++){
 
-    embers.push({
+    particles.push({
 
         x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
 
-        size:Math.random()*3+1,
+        y:
+        canvas.height-
+        Math.random()*250,
+
+        size:
+        Math.random()*3+1,
 
         speedX:
-        Math.random()*0.4+0.1,
+        (Math.random()-.5)*0.25,
 
         speedY:
-        Math.random()*0.7+0.2
+        Math.random()*0.4+0.2,
+
+        alpha:
+        Math.random()
     });
 }
 
-const blueBolts=
-document.querySelectorAll(".blue");
-
-const redBolts=
-document.querySelectorAll(".red");
-
-const centerFlash=
-document.querySelector(".centerFlash");
-
-function randomFlash(){
-
-    blueBolts.forEach(b=>{
-
-        b.style.opacity=
-        Math.random()>.5
-        ? ".9"
-        : "0";
-    });
-
-    setTimeout(()=>{
-
-        blueBolts.forEach(
-        b=>b.style.opacity="0"
-        );
-
-    },120);
-
-    redBolts.forEach(r=>{
-
-        r.style.opacity=
-        Math.random()>.5
-        ? ".9"
-        : "0";
-    });
-
-    setTimeout(()=>{
-
-        redBolts.forEach(
-        r=>r.style.opacity="0"
-        );
-
-    },120);
-
-    if(Math.random()>.6){
-
-        centerFlash.style.opacity=".8";
-
-        setTimeout(()=>{
-
-            centerFlash.style.opacity="0";
-
-        },100);
-    }
-}
-
-setInterval(
-randomFlash,
-2000 + Math.random()*3000
-);
-
-function animate(){
+function drawEmbers(){
 
     ctx.clearRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
+        0,
+        0,
+        canvas.width,
+        canvas.height
     );
 
-    embers.forEach(e=>{
+    particles.forEach(p=>{
 
         ctx.fillStyle=
-        "rgba(255,140,40,.7)";
+        `rgba(255,140,40,${p.alpha})`;
 
         ctx.beginPath();
 
         ctx.arc(
-        e.x,
-        e.y,
-        e.size,
-        0,
-        Math.PI*2
+            p.x,
+            p.y,
+            p.size,
+            0,
+            Math.PI*2
         );
 
         ctx.fill();
 
-        e.x+=e.speedX;
-        e.y-=e.speedY;
+        p.y-=p.speedY;
+        p.x+=p.speedX;
 
-        if(
-            e.y<0 ||
-            e.x>canvas.width
-        ){
+        if(p.y<0){
 
-            e.y=
+            p.y=
             canvas.height;
 
-            e.x=
+            p.x=
             Math.random()*canvas.width;
         }
     });
 
     requestAnimationFrame(
-    animate
+        drawEmbers
     );
 }
 
-animate();
+drawEmbers();
+
+const center =
+document.getElementById(
+"centerEnergy"
+);
+
+function clash(){
+
+    center.animate([
+        {
+            opacity:0
+        },
+        {
+            opacity:1
+        },
+        {
+            opacity:0
+        }
+    ],{
+        duration:800,
+        easing:"ease-out"
+    });
+}
+
+setInterval(
+    clash,
+    8000 + Math.random()*4000
+);
