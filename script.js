@@ -1,103 +1,149 @@
-const canvas = document.getElementById("effects");
-const ctx = canvas.getContext("2d");
+const canvas =
+document.getElementById("effects");
+
+const ctx =
+canvas.getContext("2d");
 
 function resize(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+
+    canvas.width =
+    window.innerWidth;
+
+    canvas.height =
+    window.innerHeight;
 }
+
 resize();
 
-window.addEventListener("resize", resize);
+window.addEventListener(
+"resize",
+resize
+);
 
-let embers = [];
+const embers=[];
 
-for(let i=0;i<100;i++){
+for(let i=0;i<250;i++){
+
     embers.push({
-        x:Math.random()*window.innerWidth,
-        y:Math.random()*window.innerHeight,
+
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+
         size:Math.random()*3+1,
-        speed:Math.random()*0.7+0.2
+
+        speedX:
+        Math.random()*0.4+0.1,
+
+        speedY:
+        Math.random()*0.7+0.2
     });
 }
 
-let blueFlash = 0;
-let redFlash = 0;
+const blueBolts=
+document.querySelectorAll(".blue");
 
-setInterval(()=>{
-    blueFlash = 1;
-},2000);
+const redBolts=
+document.querySelectorAll(".red");
 
-setInterval(()=>{
-    redFlash = 1;
-},2500);
+const centerFlash=
+document.querySelector(".centerFlash");
 
-function drawLightning(x,color,intensity){
+function randomFlash(){
 
-    if(intensity <= 0.05) return;
+    blueBolts.forEach(b=>{
 
-    ctx.strokeStyle=color;
-    ctx.lineWidth=3;
-    ctx.shadowBlur=20;
-    ctx.shadowColor=color;
+        b.style.opacity=
+        Math.random()>.5
+        ? ".9"
+        : "0";
+    });
 
-    ctx.beginPath();
+    setTimeout(()=>{
 
-    let y=0;
-    ctx.moveTo(x,y);
+        blueBolts.forEach(
+        b=>b.style.opacity="0"
+        );
 
-    while(y<canvas.height){
+    },120);
 
-        x+=(Math.random()-0.5)*50;
-        y+=40;
+    redBolts.forEach(r=>{
 
-        ctx.lineTo(x,y);
+        r.style.opacity=
+        Math.random()>.5
+        ? ".9"
+        : "0";
+    });
+
+    setTimeout(()=>{
+
+        redBolts.forEach(
+        r=>r.style.opacity="0"
+        );
+
+    },120);
+
+    if(Math.random()>.6){
+
+        centerFlash.style.opacity=".8";
+
+        setTimeout(()=>{
+
+            centerFlash.style.opacity="0";
+
+        },100);
     }
-
-    ctx.stroke();
 }
+
+setInterval(
+randomFlash,
+2000 + Math.random()*3000
+);
 
 function animate(){
 
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    blueFlash*=0.90;
-    redFlash*=0.90;
-
-    drawLightning(
-        canvas.width*0.25,
-        "#00aaff",
-        blueFlash
-    );
-
-    drawLightning(
-        canvas.width*0.75,
-        "#ff3333",
-        redFlash
+    ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
     );
 
     embers.forEach(e=>{
 
-        ctx.fillStyle="rgba(255,150,50,.7)";
+        ctx.fillStyle=
+        "rgba(255,140,40,.7)";
 
         ctx.beginPath();
+
         ctx.arc(
-            e.x,
-            e.y,
-            e.size,
-            0,
-            Math.PI*2
+        e.x,
+        e.y,
+        e.size,
+        0,
+        Math.PI*2
         );
+
         ctx.fill();
 
-        e.y-=e.speed;
+        e.x+=e.speedX;
+        e.y-=e.speedY;
 
-        if(e.y<0){
-            e.y=canvas.height;
-            e.x=Math.random()*canvas.width;
+        if(
+            e.y<0 ||
+            e.x>canvas.width
+        ){
+
+            e.y=
+            canvas.height;
+
+            e.x=
+            Math.random()*canvas.width;
         }
     });
 
-    requestAnimationFrame(animate);
+    requestAnimationFrame(
+    animate
+    );
 }
 
 animate();
