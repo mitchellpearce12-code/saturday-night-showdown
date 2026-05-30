@@ -20,33 +20,35 @@ window.addEventListener(
 resize
 );
 
+/* Premium ember system */
+
 const particles=[];
 
-for(let i=0;i<40;i++){
+for(let i=0;i<35;i++){
 
     particles.push({
 
         x:Math.random()*canvas.width,
 
         y:
-        canvas.height-
+        canvas.height -
         Math.random()*250,
 
         size:
-        Math.random()*3+1,
+        Math.random()*2.5 + 1,
 
         speedX:
-        (Math.random()-.5)*0.25,
+        (Math.random()-0.5)*0.15,
 
         speedY:
-        Math.random()*0.4+0.2,
+        Math.random()*0.35 + 0.15,
 
         alpha:
-        Math.random()
+        Math.random()*0.6 + 0.2
     });
 }
 
-function drawEmbers(){
+function render(){
 
     ctx.clearRect(
         0,
@@ -72,50 +74,20 @@ function drawEmbers(){
 
         ctx.fill();
 
-        p.y-=p.speedY;
-        p.x+=p.speedX;
+        p.y -= p.speedY;
+        p.x += p.speedX;
 
-        if(p.y<0){
+        if(p.y < -10){
 
-            p.y=
-            canvas.height;
+            p.y =
+            canvas.height + 10;
 
-            p.x=
+            p.x =
             Math.random()*canvas.width;
         }
     });
 
-    requestAnimationFrame(
-        drawEmbers
-    );
+    requestAnimationFrame(render);
 }
 
-drawEmbers();
-
-const center =
-document.getElementById(
-"centerEnergy"
-);
-
-function clash(){
-
-    center.animate([
-        {
-            opacity:0
-        },
-        {
-            opacity:1
-        },
-        {
-            opacity:0
-        }
-    ],{
-        duration:800,
-        easing:"ease-out"
-    });
-}
-
-setInterval(
-    clash,
-    8000 + Math.random()*4000
-);
+render();
