@@ -3,7 +3,7 @@ body{
     margin:0;
     padding:0;
     overflow:hidden;
-    background:black;
+    background:#000;
 }
 
 #scene{
@@ -13,39 +13,84 @@ body{
 }
 
 #background{
+    position:absolute;
+    inset:0;
     width:100%;
     height:100%;
     object-fit:contain;
-    display:block;
 }
 
-canvas,
-.energyPulse,
-.lightning,
-.centerFlash,
-.trophyShine{
+#embers,
+#blueGlow,
+#redGlow,
+#centerEnergy,
+#grandFinalGlow{
     position:absolute;
     inset:0;
     pointer-events:none;
 }
-.energyPulse{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
+
+#blueGlow{
+    background:
+    radial-gradient(
+        circle at 23% 45%,
+        rgba(0,150,255,.15),
+        transparent 40%
+    );
+
+    animation:
+    bluePulse 5s ease-in-out infinite;
+}
+
+@keyframes bluePulse{
+
+    0%,100%{
+        opacity:.45;
+    }
+
+    50%{
+        opacity:.9;
+    }
+}
+
+#redGlow{
+    background:
+    radial-gradient(
+        circle at 77% 45%,
+        rgba(255,50,50,.15),
+        transparent 40%
+    );
+
+    animation:
+    redPulse 6s ease-in-out infinite;
+}
+
+@keyframes redPulse{
+
+    0%,100%{
+        opacity:.45;
+    }
+
+    50%{
+        opacity:.9;
+    }
+}
+
+#grandFinalGlow{
 
     background:
-    radial-gradient(circle at 25% 50%,
-    rgba(0,150,255,.12),
-    transparent 45%),
+    radial-gradient(
+        circle at 50% 78%,
+        rgba(255,190,40,.12),
+        transparent 22%
+    );
 
-    radial-gradient(circle at 75% 50%,
-    rgba(255,40,40,.12),
-    transparent 45%);
-
-    animation:energyBreath 6s ease-in-out infinite;
+    animation:
+    finalPulse 4s ease-in-out infinite;
 }
 
-@keyframes energyBreath{
+@keyframes finalPulse{
+
     0%,100%{
         opacity:.4;
     }
@@ -55,124 +100,24 @@ canvas,
     }
 }
 
-.lightning{
-    position:absolute;
-    width:250px;
-    height:250px;
-    pointer-events:none;
-    opacity:0;
-}
+#centerEnergy{
 
-.blue{
-    background:
-    radial-gradient(circle,
-    rgba(0,180,255,.9),
-    rgba(0,180,255,.2),
-    transparent);
+    width:120px;
+    height:120px;
 
-    filter:blur(10px);
-}
+    left:58%;
+    top:61%;
 
-.red{
-    background:
-    radial-gradient(circle,
-    rgba(255,60,60,.9),
-    rgba(255,60,60,.2),
-    transparent);
-
-    filter:blur(10px);
-}
-
-.topLeft{
-    top:230px;
-    left:20px;
-}
-
-.centerLeft{
-    top:500px;
-    left:680px;
-}
-
-.topRight{
-    top:230px;
-    right:20px;
-}
-
-.centerRight{
-    top:500px;
-    right:680px;
-}
-
-.centerFlash{
     position:absolute;
 
-    left:50%;
-    top:58%;
-
-    width:150px;
-    height:150px;
-
-    transform:translate(-50%,-50%);
-
-    border-radius:50%;
-
     background:
-    radial-gradient(circle,
-    rgba(255,220,120,.9),
-    transparent);
+    radial-gradient(
+        circle,
+        rgba(255,210,80,.8),
+        transparent
+    );
 
     opacity:0;
 
-    pointer-events:none;
-}
-
-.trophyShine{
-    position:absolute;
-
-    left:120px;
-    bottom:90px;
-
-    width:80px;
-    height:260px;
-
-    background:
-    linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.8),
-    transparent);
-
-    transform:
-    rotate(20deg)
-    translateX(-200px);
-
-    pointer-events:none;
-
-    animation:
-    trophySweep 10s infinite;
-}
-
-@keyframes trophySweep{
-
-    0%,75%{
-        opacity:0;
-        transform:
-        rotate(20deg)
-        translateX(-200px);
-    }
-
-    80%{
-        opacity:1;
-    }
-
-    90%{
-        opacity:1;
-        transform:
-        rotate(20deg)
-        translateX(200px);
-    }
-
-    100%{
-        opacity:0;
-    }
+    filter:blur(20px);
 }
