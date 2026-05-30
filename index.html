@@ -2,38 +2,28 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Saturday Night Showdown</title>
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saturday Night Showdown</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div id="scene">
+<div id="scene">
 
-        <img id="background" src="assets/format-night.png">
+    <img id="background" src="assets/format-night.png">
 
-        <div class="energyPulse"></div>
+    <div id="blueGlow"></div>
+    <div id="redGlow"></div>
+    <div id="centerEnergy"></div>
+    <div id="grandFinalGlow"></div>
 
-        <div class="lightning blue topLeft"></div>
-        <div class="lightning blue centerLeft"></div>
+    <canvas id="embers"></canvas>
 
-        <div class="lightning red topRight"></div>
-        <div class="lightning red centerRight"></div>
+</div>
 
-        <div class="centerFlash"></div>
-
-        <div class="trophyShine"></div>
-
-        <canvas id="effects"></canvas>
-
-    </div>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
-
 </html>
