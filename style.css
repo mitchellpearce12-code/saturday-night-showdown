@@ -2,8 +2,10 @@ html,
 body{
     margin:0;
     padding:0;
+    width:100%;
+    height:100%;
     overflow:hidden;
-    background:#000;
+    background:black;
 }
 
 #scene{
@@ -18,31 +20,37 @@ body{
     width:100%;
     height:100%;
     object-fit:contain;
+    display:block;
 }
 
-#embers,
-#blueGlow,
-#redGlow,
-#centerEnergy,
-#grandFinalGlow{
+/* All effects */
+
+#blueAtmosphere,
+#redAtmosphere,
+#stadiumPulse,
+#embers{
+
     position:absolute;
     inset:0;
     pointer-events:none;
 }
 
-#blueGlow{
+/* Left Side Energy */
+
+#blueAtmosphere{
+
     background:
     radial-gradient(
-        circle at 23% 45%,
+        circle at 22% 45%,
         rgba(0,150,255,.15),
-        transparent 40%
+        transparent 45%
     );
 
     animation:
-    bluePulse 5s ease-in-out infinite;
+    blueBreath 7s ease-in-out infinite;
 }
 
-@keyframes bluePulse{
+@keyframes blueBreath{
 
     0%,100%{
         opacity:.45;
@@ -53,19 +61,22 @@ body{
     }
 }
 
-#redGlow{
+/* Right Side Energy */
+
+#redAtmosphere{
+
     background:
     radial-gradient(
-        circle at 77% 45%,
-        rgba(255,50,50,.15),
-        transparent 40%
+        circle at 78% 45%,
+        rgba(255,60,60,.15),
+        transparent 45%
     );
 
     animation:
-    redPulse 6s ease-in-out infinite;
+    redBreath 8s ease-in-out infinite;
 }
 
-@keyframes redPulse{
+@keyframes redBreath{
 
     0%,100%{
         opacity:.45;
@@ -76,20 +87,22 @@ body{
     }
 }
 
-#grandFinalGlow{
+/* Stadium Floodlight Breathing */
+
+#stadiumPulse{
 
     background:
     radial-gradient(
-        circle at 50% 78%,
-        rgba(255,190,40,.12),
-        transparent 22%
+        circle at 50% 0%,
+        rgba(255,255,255,.05),
+        transparent 60%
     );
 
     animation:
-    finalPulse 4s ease-in-out infinite;
+    floodlightPulse 6s ease-in-out infinite;
 }
 
-@keyframes finalPulse{
+@keyframes floodlightPulse{
 
     0%,100%{
         opacity:.4;
@@ -98,26 +111,4 @@ body{
     50%{
         opacity:1;
     }
-}
-
-#centerEnergy{
-
-    width:120px;
-    height:120px;
-
-    left:58%;
-    top:61%;
-
-    position:absolute;
-
-    background:
-    radial-gradient(
-        circle,
-        rgba(255,210,80,.8),
-        transparent
-    );
-
-    opacity:0;
-
-    filter:blur(20px);
 }
